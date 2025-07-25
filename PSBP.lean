@@ -295,3 +295,8 @@ let's evaluate
 #eval (materializeReactive factorial) 10
 
 --------------------------------------------------------------------------------
+
+/- dummy main --/
+
+def main : IO Unit :=
+  IO.println s!"dummy main"
