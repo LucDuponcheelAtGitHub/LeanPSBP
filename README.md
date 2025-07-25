@@ -25,12 +25,12 @@ implements them *generically* as *computation valued functions* using
 - `Applicative`,
 - `Monad`,
 
-and matrializes them using
+and *materializes* them using
 
 - `Active`,
 - `Reactive`,
 
-defines two program specifications
+defines two *program specifications*
 
 - `fibonacci`,
 - `factorial`,
