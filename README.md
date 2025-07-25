@@ -9,7 +9,7 @@ For now only one file `PSBP.lean` with comments.
 All comments to improve the quality of the code (e.g. standard practices) 
 are welcome.
 
-## First commit
+## Comments on first commits
 
 The first commit introduces *program* classes
 
