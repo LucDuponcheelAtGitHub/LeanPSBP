@@ -27,10 +27,6 @@ class Functional (program : Type u → Type u → Type v) where
 
 export Functional (function)
 
-/-- the identity function is a program -/
-def identity [Functional program] : program a a :=
-  function id
-
 /-- functions can act sequentially upon programs -/
 class Functorial (program : Type u → Type u → Type v) where
   andThenF {a b c : Type u} : program a b → (b → c) → program a c
@@ -51,6 +47,10 @@ class Sequential (program : Type u → Type u → Type v) where
 export Sequential (andThen)
 
 infixl:50 " >=> " => andThen
+
+/-- the identity function is a program -/
+def identity [Functional program] : program a a :=
+  function id
 
 /-- programs can create intermediate values -/
 def let_
