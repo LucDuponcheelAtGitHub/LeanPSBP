@@ -2,7 +2,7 @@
 
 *This is work in progress.*
 
-## Program Spacification Based Programming
+## Program Specification Based Programming
 
 For now only one file `PSBP.lean` with comments.
 
