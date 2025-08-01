@@ -13,26 +13,26 @@ unsafe def fibonacci
     [Creational program]
     [Sequential program]
     [Conditional program] :
-    program Nat Nat :=
-  if_ isZero one $
-    else_ $
-      if_ isOne one $
-        else_ $
-          (minusOne >=> fibonacci) &&&
-          (minusTwo >=> fibonacci) >=>
-          add
+  program Nat Nat :=
+    if_ isZero one $
+      else_ $
+        if_ isOne one $
+          else_ $
+            (minusOne >=> fibonacci) &&&
+            (minusTwo >=> fibonacci) >=>
+            add
 
 unsafe def factorial
     [Functional program]
     [Creational program]
     [Sequential program]
     [Conditional program] :
-    program Nat Nat :=
-  if_ isZero one $
-    else_ $
-      let_ (minusOne >=> factorial) $
-        in_ $
-          multiply
+  program Nat Nat :=
+    if_ isZero one $
+      else_ $
+        let_ (minusOne >=> factorial) $
+          in_ $
+            multiply
 
 --------------------------------------------------------------------------------
 

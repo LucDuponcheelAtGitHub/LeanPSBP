@@ -6,7 +6,7 @@ structure FromComputationValuedFunction
 
 instance [Applicative computation] :
     Functional
-    (FromComputationValuedFunction computation) where
+      (FromComputationValuedFunction computation) where
   asProgram :=
     λ αfβ => ⟨λ α => pure $ αfβ α⟩
 

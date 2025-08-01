@@ -48,7 +48,7 @@ unsafe def positionalSumOfFibonacciAndFactorial
     fibonacci @ positionOne $
       factorial @ positionTwo $
         add @ positionOneAndTwo $
-        positionOne
+          positionOne
 
 --------------------------------------------------------------------------------
 
@@ -71,4 +71,4 @@ unsafe def positionalSumOfFibonacciAndFactorial'
     fibonacci @ positionOne $
       factorial @ positionTwo $
         add @ positionOneAndTwo $
-        identity
+          identity

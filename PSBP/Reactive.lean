@@ -19,7 +19,7 @@ instance {ρ: Type} :
       ReactiveT.mk (λ γ => rpa.runReactiveT (γ ∘ αfβ))
 
 instance {ρ: Type} :
-  Applicative (ReactiveT ρ computation) where
+    Applicative (ReactiveT ρ computation) where
   pure := λ α => ReactiveT.mk (λ afcr => afcr α)
   seq: {α β : Type} →
       (ReactiveT ρ computation (α → β)) →
@@ -32,7 +32,7 @@ instance {ρ: Type} :
             (ufrpa ()).runReactiveT (bfcr ∘ αfβ)))
 
 instance {ρ: Type} :
-  Monad (ReactiveT ρ computation) where
+    Monad (ReactiveT ρ computation) where
   bind: {α β : Type} →
       (ReactiveT ρ computation α) →
       (α → ReactiveT ρ computation β) →
