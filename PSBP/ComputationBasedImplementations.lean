@@ -38,5 +38,12 @@ def foldSum {γ β α : Type}
 
 instance :
     Conditional
-    (FromComputationValuedFunction computation) where
+      (FromComputationValuedFunction computation) where
   sum := λ ⟨γfγα⟩ ⟨βfγα⟩ => ⟨foldSum γfγα βfγα⟩
+
+instance [MonadStateOf σ computation] :
+    Stateful σ
+      (FromComputationValuedFunction computation) where
+  readState := .mk λ _ => get
+  writeState := .mk set
+

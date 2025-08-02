@@ -24,6 +24,16 @@ def positionOneAndTwo
   program ((σ × β) × α) (α × β) :=
     asProgram λ ((_, β), α) => (α, β)
 
+def first
+    [Functional program] :
+  program (α × β) α :=
+    asProgram λ (α, _) => α
+
+def second
+    [Functional program] :
+  program (α × β) β :=
+    asProgram  λ (_, β) => β
+
 -- ...
 
 class Functorial (program : Type → Type → Type) where
@@ -102,3 +112,33 @@ class Positional (program : Type → Type → Type) where
 export Positional (at_)
 
 infixl:45 " @ " => at_
+
+class Stateful
+    (σ : Type)
+    (program : Type → Type → Type) where
+  readState {α : Type} : program α σ
+  writeState : program σ Unit
+
+export Stateful (readState writeState)
+
+def modifyStateWith
+    [Functional program]
+    [Sequential program]
+    [Creational program]
+    [Stateful σ program] :
+  (σ → σ) → program α α :=
+    λ σfσ =>
+      let_ ((readState >=> asProgram σfσ) >=> writeState) $
+        in_ $
+          first
+
+def usingAndModifyingStateAsArgumentWith
+    [Functional program]
+    [Creational program]
+    [Sequential program]
+    [Conditional program]
+    [Stateful σ program] :
+  (σ → σ) → program σ σ → program σ σ :=
+    λ σfσ =>
+      λ σpσ =>
+        (readState >=> modifyStateWith σfσ) >=> σpσ

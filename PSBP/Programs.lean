@@ -1,12 +1,5 @@
 import PSBP.Specifications
-import PSBP.GenericImplementations
-import PSBP.ComputationBasedImplementations
-import PSBP.Active
-import PSBP.Reactive
-import PSBP.PrimitiveFunctions
 import PSBP.PrimitivePrograms
-
---------------------------------------------------------------------------------
 
 unsafe def fibonacci
     [Functional program]
@@ -33,8 +26,6 @@ unsafe def factorial
         let_ (minusOne >=> factorial) $
           in_ $
             multiply
-
---------------------------------------------------------------------------------
 
 def twiceMinusOne01
     [Functional program]

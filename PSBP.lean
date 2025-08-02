@@ -1,5 +1,9 @@
 import PSBP.Programs
 import PSBP.PositionalPrograms
+import PSBP.Stateful
+import PSBP.StatefulPrograms
+
+-- set_option diagnostics true
 
 #eval "------------------------------------------------------------------------"
 #eval "------------------------------------------------------------------------"
@@ -61,5 +65,9 @@ import PSBP.PositionalPrograms
 #eval "------------------------------------------------------------------------"
 #eval "(positional) sumOfFibonacciAndFactorial stack for 10 = ..."
 #eval (materializeReactive positionalSumOfFibonacciAndFactorial') ((), 10)
+#eval "------------------------------------------------------------------------"
+#eval "------------------------------------------------------------------------"
+#eval "fibonacciIncrementingArgumentPair 5 0 = ..."
+#eval (materializeActiveStateful fibonacciIncrementingArgumentPair) 0 10
 #eval "------------------------------------------------------------------------"
 #eval "------------------------------------------------------------------------"
