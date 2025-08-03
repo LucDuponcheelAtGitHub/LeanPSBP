@@ -126,19 +126,18 @@ def modifyStateWith
     [Sequential program]
     [Creational program]
     [Stateful σ program] :
-  (σ → σ) → program α α :=
+  (σ → σ) → program τ τ :=
     λ σfσ =>
       let_ ((readState >=> asProgram σfσ) >=> writeState) $
         in_ $
           first
 
-def readingInitialStateAsInitialValueAndModifyingItWith
+def withInitialStateAsInitialValue
     [Functional program]
     [Creational program]
     [Sequential program]
     [Conditional program]
     [Stateful σ program] :
-  (σ → σ) → program σ σ → program α σ :=
-    λ σfσ =>
-      λ σpσ =>
-        (readState >=> modifyStateWith σfσ) >=> σpσ
+  program σ τ → program α τ :=
+    λ σpτ =>
+      readState >=> σpτ

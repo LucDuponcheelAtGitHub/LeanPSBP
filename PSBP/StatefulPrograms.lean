@@ -8,9 +8,9 @@ unsafe def fibonacciIncrementingArgument
     [Conditional program]
     [Stateful Nat program] :
   program Unit Nat :=
-    readingInitialStateAsInitialValueAndModifyingItWith
-    (. + 1)
-    fibonacci
+    withInitialStateAsInitialValue fibonacci >=>
+    modifyStateWith (. + 1)
+
 
 unsafe def fibonacciIncrementingArgumentPair
     [Functional program]
