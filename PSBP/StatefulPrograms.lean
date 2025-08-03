@@ -7,8 +7,10 @@ unsafe def fibonacciIncrementingArgument
     [Sequential program]
     [Conditional program]
     [Stateful Nat program] :
-  program Nat Nat :=
-    usingAndModifyingStateAsArgumentWith (. + 1) fibonacci
+  program Unit Nat :=
+    readingInitialStateAsInitialValueAndModifyingItWith
+    (. + 1)
+    fibonacci
 
 unsafe def fibonacciIncrementingArgumentPair
     [Functional program]
@@ -16,6 +18,6 @@ unsafe def fibonacciIncrementingArgumentPair
     [Sequential program]
     [Conditional program]
     [Stateful Nat program] :
-  program Nat (Nat × Nat) :=
+  program Unit (Nat × Nat) :=
     fibonacciIncrementingArgument &&&
     fibonacciIncrementingArgument

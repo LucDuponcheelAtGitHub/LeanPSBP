@@ -132,13 +132,13 @@ def modifyStateWith
         in_ $
           first
 
-def usingAndModifyingStateAsArgumentWith
+def readingInitialStateAsInitialValueAndModifyingItWith
     [Functional program]
     [Creational program]
     [Sequential program]
     [Conditional program]
     [Stateful σ program] :
-  (σ → σ) → program σ σ → program σ σ :=
+  (σ → σ) → program σ σ → program α σ :=
     λ σfσ =>
       λ σpσ =>
         (readState >=> modifyStateWith σfσ) >=> σpσ
