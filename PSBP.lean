@@ -67,7 +67,7 @@ import PSBP.StatefulPrograms
 #eval (materializeReactive positionalSumOfFibonacciAndFactorial') ((), 10)
 #eval "------------------------------------------------------------------------"
 #eval "------------------------------------------------------------------------"
-#eval "fibonacciIncrementingArgumentPair 5 0 = ..."
+#eval "fibonacciIncrementingArgumentPair () 10 = ..."
 #eval (materializeActiveStateful fibonacciIncrementingArgumentPair) () 10
 #eval "------------------------------------------------------------------------"
 #eval "------------------------------------------------------------------------"
