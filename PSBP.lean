@@ -1,7 +1,9 @@
 import PSBP.Programs
 import PSBP.PositionalPrograms
-import PSBP.Stateful
-import PSBP.StatefulPrograms
+import PSBP.WithState
+import PSBP.ProgramsWithState
+import PSBP.WithFailure
+import PSBP.ProgramsWithFailure
 
 -- set_option diagnostics true
 
@@ -68,6 +70,14 @@ import PSBP.StatefulPrograms
 #eval "------------------------------------------------------------------------"
 #eval "------------------------------------------------------------------------"
 #eval "fibonacciIncrementingArgumentPair () 10 = ..."
-#eval (materializeActiveStateful fibonacciIncrementingArgumentPair) () 10
+#eval (materializeActiveWithState fibonacciIncrementingArgumentPair) () 10
+#eval "------------------------------------------------------------------------"
+#eval "------------------------------------------------------------------------"
+#eval "safeDiv (10, 5) = ..."
+#eval (materializeActiveWithFailure safeDiv) (10, 5)
+#eval "------------------------------------------------------------------------"
+#eval "------------------------------------------------------------------------"
+#eval "safeDiv (10, 0) = ..."
+#eval (materializeActiveWithFailure safeDiv) (10, 0)
 #eval "------------------------------------------------------------------------"
 #eval "------------------------------------------------------------------------"

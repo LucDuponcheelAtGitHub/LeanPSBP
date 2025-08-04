@@ -6,7 +6,7 @@ unsafe def fibonacciIncrementingArgument
     [Creational program]
     [Sequential program]
     [Conditional program]
-    [Stateful Nat program] :
+    [WithState Nat program] :
   program Unit Nat :=
     withInitialStateAsInitialValue fibonacci >=>
     modifyStateWith (. + 1)
@@ -17,7 +17,7 @@ unsafe def fibonacciIncrementingArgumentPair
     [Creational program]
     [Sequential program]
     [Conditional program]
-    [Stateful Nat program] :
+    [WithState Nat program] :
   program Unit (Nat × Nat) :=
     fibonacciIncrementingArgument &&&
     fibonacciIncrementingArgument

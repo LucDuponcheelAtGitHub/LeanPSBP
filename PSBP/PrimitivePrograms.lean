@@ -36,3 +36,11 @@ def add [Functional program] :
 def multiply [Functional program] :
   program (Nat × Nat) Nat :=
     asProgram multiplyF
+
+def isNotZero [Functional program] :
+  program Nat Bool :=
+    asProgram isNotZeroF
+
+def unsafeDiv [Functional program] :
+  program (Nat × Nat) Nat :=
+    asProgram unsafeDivF

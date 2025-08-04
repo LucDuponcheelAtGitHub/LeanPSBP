@@ -42,8 +42,51 @@ instance :
   sum := λ ⟨γfγα⟩ ⟨βfγα⟩ => ⟨foldSum γfγα βfγα⟩
 
 instance [MonadStateOf σ computation] :
-    Stateful σ
+    WithState σ
       (FromComputationValuedFunction computation) where
   readState := .mk λ _ => get
   writeState := .mk set
 
+def FailureT
+    (ε : Type u)
+    (computation : Type u → Type v)
+    (β : Type u) : Type v :=
+  computation (ε ⊕ β)
+
+def FailureT.mk
+    {ε : Type u}
+    {computation : Type u → Type v}
+    {α : Type u}
+    (cεoα : computation (ε ⊕ α)) :
+  FailureT ε computation α := cεoα
+
+instance
+    [Monad computation] :
+  Monad (FailureT ε computation) where
+    map  :=
+    λ αfβ ftcα =>
+      FailureT.mk (ftcα >>= λ εoα => match εoα with
+        | (Sum.inr α) => pure $ Sum.inr (αfβ α)
+        | (Sum.inl ε) => pure $ Sum.inl ε)
+    pure :=
+      λ α =>
+        FailureT.mk (pure (Sum.inr α))
+    bind :=
+    λ ftcα αfftcβ =>
+      FailureT.mk (ftcα >>= λ εoα => match εoα with
+        | Sum.inr α  => αfftcβ α
+        | Sum.inl ε  => pure (Sum.inl ε))
+
+instance {ε : Type}
+    [Applicative computation] :
+  WithFailure ε
+    (FromComputationValuedFunction
+      (FailureT ε computation)) where
+  failWith :=
+    λ αfε =>
+      ⟨λ α =>
+        let cεpβ :=
+          pure  $
+            Sum.inl $
+              αfε α
+        cεpβ⟩

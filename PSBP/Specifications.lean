@@ -113,19 +113,19 @@ export Positional (at_)
 
 infixl:45 " @ " => at_
 
-class Stateful
-    (σ : Type)
+class WithState
+    (σ : outParam Type)
     (program : Type → Type → Type) where
   readState {α : Type} : program α σ
   writeState : program σ Unit
 
-export Stateful (readState writeState)
+export WithState (readState writeState)
 
 def modifyStateWith
     [Functional program]
     [Sequential program]
     [Creational program]
-    [Stateful σ program] :
+    [WithState σ program] :
   (σ → σ) → program τ τ :=
     λ σfσ =>
       let_ ((readState >=> asProgram σfσ) >=> writeState) $
@@ -137,7 +137,14 @@ def withInitialStateAsInitialValue
     [Creational program]
     [Sequential program]
     [Conditional program]
-    [Stateful σ program] :
+    [WithState σ program] :
   program σ τ → program α τ :=
     λ σpτ =>
       readState >=> σpτ
+
+class WithFailure
+    (ε : outParam Type)
+    (program : Type → Type →Type) where
+  failWith {α β : Type} : (α → ε) → program α β
+
+export WithFailure (failWith)
