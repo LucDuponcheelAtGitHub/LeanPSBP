@@ -1,6 +1,9 @@
-class Functional (program : Type → Type → Type) where
+class Functional
+    (program : Type → Type → Type) where
   asProgram {α β : Type} :
     (α → β) → program α β
+
+export Functional (asProgram)
 
 export Functional (asProgram)
 
@@ -36,7 +39,8 @@ def second
 
 -- ...
 
-class Functorial (program : Type → Type → Type) where
+class Functorial
+    (program : Type → Type → Type) where
   andThenF {α β γ : Type} :
     program α β → (β → γ) → program α γ
 
@@ -44,7 +48,8 @@ export Functorial (andThenF)
 
 infixl:50 " >-> " => andThenF
 
-class Creational (program : Type → Type → Type) where
+class Creational
+    (program : Type → Type → Type) where
   product {α β γ : Type} :
     program α β → program α γ → program α (β × γ)
 
@@ -52,7 +57,8 @@ export Creational (product)
 
 infixl:60 " &&& " => product
 
-class Sequential (program : Type → Type → Type) where
+class Sequential
+    (program : Type → Type → Type) where
   andThen {α β γ : Type} :
     program α β → program β γ → program α γ
 
@@ -69,7 +75,8 @@ def let_
 
 def in_ : α → α := id
 
-class Conditional (program : Type → Type → Type) where
+class Conditional
+    (program : Type → Type → Type) where
   sum {α β γ : Type} :
     program γ α → program β α → program (γ ⊕ β) α
 
@@ -98,7 +105,8 @@ def if_
     λ αpb t_apβ f_apβ =>
       let_ αpb $
         in_ $
-          trueToLeftFalseToRight >=> t_apβ ||| f_apβ
+          trueToLeftFalseToRight >=>
+          t_apβ ||| f_apβ
 
 def else_ : α → α := id
 

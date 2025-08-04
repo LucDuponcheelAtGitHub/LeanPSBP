@@ -7,12 +7,6 @@ def isOneF : Nat → Bool :=
 def oneF : Nat → Nat :=
   λ _ => 1
 
-def twoF : Nat → Nat :=
-  λ _ => 2
-
-def threeF : Nat → Nat :=
-  λ _ => 3
-
 def minusOneF : Nat → Nat :=
   λ n => n - 1
 
@@ -24,6 +18,12 @@ def addF : Nat × Nat → Nat :=
 
 def multiplyF : Nat × Nat → Nat :=
   λ ⟨n, m⟩ => n * m
+
+def twoF : Nat → Nat :=
+  λ _ => 2
+
+def threeF : Nat → Nat :=
+  λ _ => 3
 
 def isNotZeroF: Nat → Bool :=
   λ n => n != 0

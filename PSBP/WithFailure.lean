@@ -9,11 +9,9 @@ def materializeWithFailure
       ProgramWithFailure ε computation α β →
       α →
       computation (ε ⊕ β) :=
-  λ ⟨αpβ⟩ =>
-   λ α =>
+  λ ⟨αpβ⟩ α =>
     αpβ α
 
 def materializeActiveWithFailure {α β : Type} :
  ProgramWithFailure ε Active α β → α → (ε ⊕ β) :=
   materializeWithFailure
-

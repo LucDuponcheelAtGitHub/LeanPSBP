@@ -14,13 +14,13 @@ instance [Functor computation] :
     Functorial
       (FromComputationValuedFunction computation) where
   andThenF :=
-    λ ⟨αfcβ⟩ => λ βfγ => ⟨λ α => βfγ <$> αfcβ α⟩
+    λ ⟨αfcβ⟩ βfγ => ⟨λ α => βfγ <$> αfcβ α⟩
 
 instance [Applicative computation] :
     Creational
       (FromComputationValuedFunction computation) where
   product := λ ⟨αfcβ⟩ ⟨αfcγ⟩ =>
-    ⟨λ α => pure Prod.mk <*> αfcβ α <*> αfcγ α⟩
+    ⟨λ α => pure .mk <*> αfcβ α <*> αfcγ α⟩
 
 instance [Monad computation] :
     Sequential
@@ -44,8 +44,8 @@ instance :
 instance [MonadStateOf σ computation] :
     WithState σ
       (FromComputationValuedFunction computation) where
-  readState := .mk λ _ => get
-  writeState := .mk set
+  readState := ⟨λ _ => get⟩
+  writeState := ⟨set⟩
 
 def FailureT
     (ε : Type u)
@@ -60,28 +60,26 @@ def FailureT.mk
     (cεoα : computation (ε ⊕ α)) :
   FailureT ε computation α := cεoα
 
-instance
-    [Monad computation] :
-  Monad (FailureT ε computation) where
-    map  :=
-    λ αfβ ftcα =>
-      FailureT.mk (ftcα >>= λ εoα => match εoα with
-        | (Sum.inr α) => pure $ Sum.inr (αfβ α)
-        | (Sum.inl ε) => pure $ Sum.inl ε)
-    pure :=
-      λ α =>
-        FailureT.mk (pure (Sum.inr α))
-    bind :=
-    λ ftcα αfftcβ =>
-      FailureT.mk (ftcα >>= λ εoα => match εoα with
-        | Sum.inr α  => αfftcβ α
-        | Sum.inl ε  => pure (Sum.inl ε))
+instance [Monad computation] :
+    Monad (FailureT ε computation) where
+  map  :=
+  λ αfβ ftcα =>
+    .mk (ftcα >>= λ εoα => match εoα with
+      | (Sum.inr α) => pure $ Sum.inr (αfβ α)
+      | (Sum.inl ε) => pure $ Sum.inl ε)
+  pure :=
+    λ α =>
+      .mk (pure (Sum.inr α))
+  bind :=
+  λ ftcα αfftcβ =>
+    .mk (ftcα >>= λ εoα => match εoα with
+      | Sum.inr α  => αfftcβ α
+      | Sum.inl ε  => pure (Sum.inl ε))
 
-instance {ε : Type}
-    [Applicative computation] :
-  WithFailure ε
-    (FromComputationValuedFunction
-      (FailureT ε computation)) where
+instance {ε : Type} [Applicative computation] :
+    WithFailure ε
+      (FromComputationValuedFunction
+        (FailureT ε computation)) where
   failWith :=
     λ αfε =>
       ⟨λ α =>

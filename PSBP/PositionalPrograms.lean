@@ -15,8 +15,8 @@ def someProgram01
     [Creational program] :
   program Nat Nat :=
     minusOne &&& minusTwo &&& two &&& three >->
-      λ (((ν1, ν2), ν3), ν4) =>
-        ν2 + ν3 * ν1 + ν4 -- (10 - 2) + 2 * (10 - 1) + 3
+      λ (((n1, n2), n3), n4) =>
+        n2 + n3 * n1 + n4 -- (10 - 2) + 2 * (10 - 1) + 3
 
 def someProgram02
     [Functional program]
@@ -24,8 +24,8 @@ def someProgram02
     [Creational program] :
   program Nat Nat :=
     minusOne &&& minusTwo &&& two &&& three >=>
-      asProgram (λ (((ν1, ν2), ν3), ν4) =>
-        ν2 + ν3 * ν1 + ν4)
+      asProgram (λ (((n1, n2), n3), n4) =>
+        n2 + n3 * n1 + n4)
 
 --------------------------------------------------------------------------------
 
