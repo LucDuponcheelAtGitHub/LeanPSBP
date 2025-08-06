@@ -1,5 +1,6 @@
-import PSBP.ComputationBasedImplementations
-import PSBP.Active
+import PSBP.Structures.ComputationValuedFunction
+
+import PSBP.Implementations.ActiveImplementations
 
 abbrev ProgramWithState σ computation :=
   FromComputationValuedFunction (StateT σ computation)
@@ -10,10 +11,10 @@ def materializeWithState
       α →
       σ →
       computation β :=
-  λ ⟨αpβ⟩ =>
+  λ ⟨αfstcβ⟩ =>
     λ α =>
       λ σ =>
-        StateT.run (αpβ α) σ >>=
+        StateT.run (αfstcβ α) σ >>=
           λ (β, _) => pure β
 
 def materializeActiveWithState {α β : Type} :

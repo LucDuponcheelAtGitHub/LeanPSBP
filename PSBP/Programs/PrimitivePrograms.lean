@@ -1,5 +1,6 @@
-import PSBP.Specifications
-import PSBP.PrimitiveFunctions
+import PSBP.Specifications.ProgramSpecifications
+
+import PSBP.Functions.PrimitiveFunctions
 
 def isZero
     [Functional program] :

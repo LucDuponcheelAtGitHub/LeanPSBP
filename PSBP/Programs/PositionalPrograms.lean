@@ -1,15 +1,11 @@
-import PSBP.Specifications
-import PSBP.GenericImplementations
-import PSBP.ComputationBasedImplementations
-import PSBP.Active
-import PSBP.Reactive
-import PSBP.PrimitiveFunctions
-import PSBP.PrimitivePrograms
-import PSBP.Programs
+import PSBP.Specifications.ProgramSpecifications
 
---------------------------------------------------------------------------------
+import PSBP.Implementations.GenericImplementations
 
-def someProgram01
+import PSBP.Programs.PrimitivePrograms
+import PSBP.Programs.Programs
+
+def somePositionalProgram01
     [Functional program]
     [Functorial program]
     [Creational program] :
@@ -18,7 +14,7 @@ def someProgram01
       λ (((n1, n2), n3), n4) =>
         n2 + n3 * n1 + n4 -- (10 - 2) + 2 * (10 - 1) + 3
 
-def someProgram02
+def somePositionalProgram02
     [Functional program]
     [Sequential program]
     [Creational program] :
@@ -26,8 +22,6 @@ def someProgram02
     minusOne &&& minusTwo &&& two &&& three >=>
       asProgram (λ (((n1, n2), n3), n4) =>
         n2 + n3 * n1 + n4)
-
---------------------------------------------------------------------------------
 
 unsafe def positionalFactorialOfFibonacci
     [Functional program]
@@ -49,8 +43,6 @@ unsafe def positionalSumOfFibonacciAndFactorial
       factorial @ positionTwo $
         add @ positionOneAndTwo $
           positionOne
-
---------------------------------------------------------------------------------
 
 unsafe def positionalFactorialOfFibonacci'
     [Functional program]

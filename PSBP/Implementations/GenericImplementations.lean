@@ -1,4 +1,6 @@
-import PSBP.Specifications
+import PSBP.Specifications.ProgramSpecifications
+
+import PSBP.Specifications.PositionalSpecification
 
 instance
     [Functional program]

@@ -1,5 +1,8 @@
-import PSBP.ComputationBasedImplementations
-import PSBP.Active
+import PSBP.Structures.ComputationValuedFunction
+
+import PSBP.Implementations.WithFailureImplementation
+
+import PSBP.Implementations.ActiveImplementations
 
 abbrev ProgramWithFailure ε computation :=
   FromComputationValuedFunction (FailureT ε computation)
@@ -9,8 +12,8 @@ def materializeWithFailure
       ProgramWithFailure ε computation α β →
       α →
       computation (ε ⊕ β) :=
-  λ ⟨αpβ⟩ α =>
-    αpβ α
+  λ ⟨αftcβ⟩ α =>
+    (αftcβ α).toComputationOfSum
 
 def materializeActiveWithFailure {α β : Type} :
  ProgramWithFailure ε Active α β → α → (ε ⊕ β) :=

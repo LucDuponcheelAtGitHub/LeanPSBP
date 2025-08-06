@@ -1,5 +1,6 @@
-import PSBP.Specifications
-import PSBP.PrimitivePrograms
+import PSBP.Specifications.ProgramSpecifications
+
+import PSBP.Programs.PrimitivePrograms
 
 unsafe def fibonacci
     [Functional program]

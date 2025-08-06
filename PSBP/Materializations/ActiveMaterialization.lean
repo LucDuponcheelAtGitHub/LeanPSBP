@@ -1,10 +1,10 @@
-import PSBP.ComputationBasedImplementations
+import PSBP.Structures.ComputationValuedFunction
 
-abbrev Active := Id
+import PSBP.Implementations.ActiveImplementations
 
 abbrev ActiveProgram α β :=
   FromComputationValuedFunction Active α β
 
 def materializeActive :
     ActiveProgram α β → (α → β) :=
-  λ ⟨αpβ⟩ α => (αpβ α).run
+  λ ⟨αfaβ⟩ α => (αfaβ α).run

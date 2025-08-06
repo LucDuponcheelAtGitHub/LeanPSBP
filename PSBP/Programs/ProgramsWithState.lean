@@ -1,5 +1,7 @@
-import PSBP.Specifications
-import PSBP.Programs
+import PSBP.Specifications.ProgramSpecifications
+import PSBP.Specifications.WithStateSpecification
+
+import PSBP.Programs.Programs
 
 unsafe def fibonacciIncrementingArgument
     [Functional program]
@@ -10,7 +12,6 @@ unsafe def fibonacciIncrementingArgument
   program Unit Nat :=
     withInitialStateAsInitialValue fibonacci >=>
     modifyStateWith (. + 1)
-
 
 unsafe def fibonacciIncrementingArgumentPair
     [Functional program]

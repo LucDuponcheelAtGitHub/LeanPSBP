@@ -1,5 +1,4 @@
-import PSBP.ComputationBasedImplementations
-import PSBP.Active
+import PSBP.Implementations.ActiveImplementations
 
 structure ReactiveT
     (ρ : Type)
@@ -19,24 +18,16 @@ instance {ρ: Type} :
     Applicative (ReactiveT ρ computation) where
   pure := λ α => ReactiveT.mk (λ αfcρ => αfcρ α)
   seq :=
-    λ ⟨rcαfβ⟩ ufrcα =>
-      ⟨λ bβfcρ =>
+    λ ⟨rcαfβ⟩ ufrtcα =>
+      ⟨λ βfcρ =>
         rcαfβ $
           (λ αfβ =>
-            (ufrcα ()).runReactiveT (bβfcρ ∘ αfβ))⟩
+            (ufrtcα ()).runReactiveT (βfcρ ∘ αfβ))⟩
 
 instance {ρ: Type} :
     Monad (ReactiveT ρ computation) where
   bind :=
-    λ ⟨rcα⟩ αfrcβ =>
+    λ ⟨rcα⟩ αfrtcβ =>
       ⟨λ βfcρ =>
         rcα (λ α =>
-        (αfrcβ α).runReactiveT βfcρ)⟩
-
-abbrev ReactiveProgram ρ computation :=
-  FromComputationValuedFunction (ReactiveT ρ computation)
-
-def materializeReactive {α β : Type} :
-    ReactiveProgram β Active α β → α → β :=
-  λ ⟨αpβ⟩ α =>
-      (αpβ α).runReactiveT id
+        (αfrtcβ α).runReactiveT βfcρ)⟩
