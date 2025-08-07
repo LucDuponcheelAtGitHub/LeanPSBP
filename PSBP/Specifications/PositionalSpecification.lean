@@ -1,4 +1,5 @@
-class Positional (program : Type → Type → Type) where
+class Positional
+    (program : Type → Type → Type) where
   at_ {σ α β γ : Type} :
     program α β →
     program σ α →

@@ -9,11 +9,11 @@ abbrev ProgramWithFailure ε computation :=
 
 def materializeWithFailure
     [Monad computation] {α β : Type} :
-      ProgramWithFailure ε computation α β →
-      α →
-      computation (ε ⊕ β) :=
-  λ ⟨αftcβ⟩ α =>
-    (αftcβ α).toComputationOfSum
+  ProgramWithFailure ε computation α β →
+  α →
+  computation (ε ⊕ β) :=
+    λ ⟨αftεcβ⟩ α =>
+      (αftεcβ α).toComputationOfSum
 
 def materializeActiveWithFailure {α β : Type} :
  ProgramWithFailure ε Active α β → α → (ε ⊕ β) :=

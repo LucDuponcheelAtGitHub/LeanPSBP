@@ -8,7 +8,7 @@ instance
     Functorial program where
   andThenF {α β γ: Type} :
     program α β → (β → γ) → program α γ :=
-      λ αpβ => λ βfγ => αpβ >=> asProgram βfγ
+      λ αpβ βfγ => αpβ >=> asProgram βfγ
 
 instance
     [Functional program]
