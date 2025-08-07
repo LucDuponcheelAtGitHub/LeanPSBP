@@ -7,5 +7,6 @@ import PSBP.Materializations.WithStateMaterialization
 
 import PSBP.Programs.ProgramsWithState
 
-#eval "fibonacciIncrementingArgumentPair () 10 = ..."
-#eval (materializeActiveWithState fibonacciIncrementingArgumentPair) () 10
+#eval
+  materializeActiveWithState fibonacciIncrementingArgumentPair () 10 ==
+  (89, 144)
