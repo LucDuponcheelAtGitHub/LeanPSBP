@@ -9,5 +9,5 @@ abbrev ReactiveProgram ρ computation :=
 
 def materializeReactive {α β : Type} :
     ReactiveProgram β Active α β → α → β :=
-  λ ⟨αfrtacβ⟩ α =>
-      (αfrtacβ α).runReactiveT id
+  λ ⟨αfrtaβcβ⟩ α =>
+      (αfrtaβcβ α).runReactiveT id

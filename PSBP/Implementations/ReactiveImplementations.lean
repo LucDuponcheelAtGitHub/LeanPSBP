@@ -18,16 +18,16 @@ instance {ρ: Type} :
     Applicative (ReactiveT ρ computation) where
   pure := λ α => ReactiveT.mk (λ αfcρ => αfcρ α)
   seq :=
-    λ ⟨rcαfβ⟩ ufrtcα =>
+    λ ⟨rcαfβ⟩ ufrtρcα =>
       ⟨λ βfcρ =>
         rcαfβ $
           (λ αfβ =>
-            (ufrtcα ()).runReactiveT (βfcρ ∘ αfβ))⟩
+            (ufrtρcα ()).runReactiveT (βfcρ ∘ αfβ))⟩
 
 instance {ρ: Type} :
     Monad (ReactiveT ρ computation) where
   bind :=
-    λ ⟨rcα⟩ αfrtcβ =>
+    λ ⟨rcα⟩ αfrtρcβ =>
       ⟨λ βfcρ =>
         rcα (λ α =>
-        (αfrtcβ α).runReactiveT βfcρ)⟩
+        (αfrtρcβ α).runReactiveT βfcρ)⟩

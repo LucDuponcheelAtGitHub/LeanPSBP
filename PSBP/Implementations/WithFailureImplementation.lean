@@ -1,4 +1,5 @@
 import PSBP.Specifications.WithFailureSpecification
+import PSBP.Specifications.MonoidSpecification
 
 import PSBP.Structures.ComputationValuedFunction
 
@@ -17,7 +18,7 @@ instance [Monad computation] :
       | (.inl ε) => pure $ .inl ε⟩
   pure :=
     λ α =>
-      .mk (pure (Sum.inr α))
+      ⟨pure $ .inr α⟩
   bind :=
     λ ⟨cεoα⟩ αfftεcβ =>
       ⟨cεoα >>= λ εoα => match εoα with
@@ -33,3 +34,39 @@ instance {ε : Type}
     λ αfε =>
       ⟨λ α =>
         ⟨pure $ Sum.inl $ αfε α⟩⟩
+
+instance
+    [Functor computation] :
+  Functor (FailureT ε computation) where
+    map :=
+     λ αfβ ⟨cεoα⟩ =>
+       ⟨(λ εoα =>
+           match εoα with
+            | .inl ε => .inl ε
+            | .inr α => .inr (αfβ α)) <$> cεoα
+       ⟩
+
+instance
+    [Applicative computation]
+    [Monoid ε] :
+  Applicative (FailureT ε computation) where
+    pure :=
+      λ α =>
+        ⟨pure $ .inr α⟩
+    seq :=
+      λ ⟨cεoαfβ⟩ ufftεcα =>
+        let cεoα :=
+          (ufftεcα ()).toComputationOfSum
+        let εoαfεoαfβfεoβ {α β : Type} :
+          (ε ⊕ α) → (ε ⊕ (α → β)) → (ε ⊕ β) :=
+            λ εoα εoαfβ =>
+              match εoα with
+                | .inl ε =>
+                  match εoαfβ with
+                    | .inr _  => .inl ε
+                    | .inl ε' => .inl (ε' * ε)
+                | .inr α =>
+                  match εoαfβ with
+                    | .inr αfβ  => .inr (αfβ α)
+                    | .inl ε' => .inl ε'
+        ⟨εoαfεoαfβfεoβ <$> cεoα <*> cεoαfβ⟩
