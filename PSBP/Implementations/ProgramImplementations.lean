@@ -14,17 +14,18 @@ instance [Functor computation] :
   andThenF :=
     λ ⟨αfcβ⟩ βfγ => ⟨λ α => βfγ <$> αfcβ α⟩
 
-instance [Applicative computation] :
-    Creational
-      (FromComputationValuedFunction computation) where
-  product := λ ⟨αfcβ⟩ ⟨αfcγ⟩ =>
-    ⟨λ α => pure .mk <*> αfcβ α <*> αfcγ α⟩
-
 instance [Monad computation] :
     Sequential
       (FromComputationValuedFunction computation) where
   andThen :=
     λ ⟨αfcβ⟩ ⟨βfcγ⟩ => ⟨λ α => αfcβ α >>= βfcγ⟩
+
+instance [Applicative computation] :
+    Creational
+      (FromComputationValuedFunction computation) where
+  product := λ ⟨αfcβ⟩ ⟨αfcγ⟩ =>
+    -- ⟨λ α => pure .mk <*> αfcβ α <*> αfcγ α⟩
+    ⟨λ α => .mk <$> αfcβ α <*> αfcγ α⟩
 
 def foldSum {γ β α : Type}
     (γfα : γ → α)
